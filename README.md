@@ -36,5 +36,5 @@ Cписок студентов с возможностью регистраци�
 4. Отредактируйте файл config.php, указав настройки базы данных и желаемое количество записей, отображаемых на одной странице таблицы.
 
 ## Скриншоты
-![](https://github.com/wb3ar/student-list/blob/master/preview_imgs/1.png)
-![](https://github.com/wb3ar/student-list/blob/master/preview_imgs/2.png)
+![Список абитуриентов](https://github.com/wb3ar/student-list/blob/master/preview_imgs/1.png)
+![Форма добавления абитуриента](https://github.com/wb3ar/student-list/blob/master/preview_imgs/2.png)
