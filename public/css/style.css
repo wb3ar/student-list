@@ -1,0 +1,56 @@
+.container, .header {
+    min-width: 992px;
+}
+
+.link-list {
+    font-size: 45px;
+    position: absolute;
+    top: 18px;
+    margin-left: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+.link-list:hover, .link-list:focus {
+    color: #96D1FF;
+    outline: none;
+}
+
+.search {
+    margin-top: 19px;
+    margin-bottom: 15px;
+    padding-right: 0;
+}
+
+.table-striped>tbody>tr {
+    background-color: #EDEDED;
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: #337ab7;
+    color: white;
+}
+
+.table-hover>tbody>tr:hover a {
+    color: #B2E5FF;
+}
+
+.user {
+    margin-top: 19px;
+    margin-right: 25px;
+    margin-bottom: 15px;
+}
+
+.glyphicon-user {
+    margin-right: 5px;
+}
+
+table {
+    table-layout: fixed;
+    border: 1px solid #ddd;
+}
+
+h1 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

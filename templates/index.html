@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Список абитуриентов</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Свой CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <?php if (isset($message)): ?>
+
+                <div class="alert <?=isset($s)?'alert-success':'alert-danger'?>" role="alert">
+                    <?=$message?>
+                </div>
+
+                <?php else: ?>
+                <header class="clearfix">
+                    <h1 class="pull-left">Список абитуриентов</h1>
+
+                    <div class="pull-right col-xs-3 search">
+                        <form role="form" class="form-horizontal" accept-charset="utf-8" method="get">
+                            <div class="input-group">
+                                <input name="search" pattern="[а-яА-ЯёЁa-zA-Z0-9]+" title="русские и латинские буквы, цифры" type="search" class="form-control" placeholder="Введите текст..." value="<?=isset($search)?htmlSpec($search):''?>">
+                                <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+        </span>
+                            </div>
+                        </form>
+                    </div>
+                    <a class="btn btn-default pull-right user" href="<?=!empty($cookie)?'edit.php':'registration.php'?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><?=!empty($cookie)?'Изменить профиль':'Регистрация'?></a>
+                </header>
+                <?php if (count((array)$abiturients)>0): ?>
+                <?php if (!empty($search)): ?>
+                <h4>Показаны только абитуриенты, найденные по запросу «<?=htmlSpec($search)?>».
+            <br>
+          <a href="index.php">Показать всех абитуриентов</a></h4>
+                <?php endif; ?>
+                <table class="table table-condensed table-striped table-hover">
+                    <tr>
+                        <th>№</th>
+                        <th>
+                            <?=getLink('firstname', $order, $search, 'Имя', $pager)?>
+                        </th>
+                        <th>
+                            <?=getLink('lastname', $order, $search, 'Фамилия', $pager)?>
+                        </th>
+                        <th>
+                            <?=getLink('group_n', $order, $search, 'Номер группы', $pager)?>
+                        </th>
+                        <th>
+                            <?=getLink('ege', $order, $search, 'Баллов', $pager)?>
+                        </th>
+                    </tr>
+                    <?php foreach ($abiturients as $abiturient): ?>
+                    <tr>
+                        <td>
+                            <?=$i++?>
+                        </td>
+                        <td>
+                            <?=htmlSpec($abiturient->getVar('firstname'))?>
+                        </td>
+                        <td>
+                            <?=htmlSpec($abiturient->getVar('lastname'))?>
+                        </td>
+                        <td>
+                            <?=htmlSpec($abiturient->getVar('group_n'))?>
+                        </td>
+                        <td>
+                            <?=htmlSpec($abiturient->getVar('ege'))?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+                <?php if ($pager->getVar('totalPages')>1): ?>
+                <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination">
+                        <?=getPaginationLink(1, $page, $pager, $search, $order2, $desc)?>
+                            <?php for ($i=1; $i<=$pager->getVar('totalPages'); $i++): ?>
+                            <li<?=$i==$page? ' class="active"': ''?>>
+                                <a href="<?=$pager->getLinkForPage($search, $i, $order2, $desc)?>">
+                                    <?=$i?>
+                                </a>
+                                </li>
+                                <?php endfor; ?>
+                                <?=getPaginationLink(0, $page, $pager, $search, $order2, $desc)?>
+                    </ul>
+                </nav>
+                <?php endif; ?>
+                <?php elseif (!empty($search)): ?>
+                <h4>Ничего не найдено по запросу «<?=htmlSpec($search)?>».
+            <br>
+          <a href="index.php">Показать всех абитуриентов</a></h4>
+                <?php endif;?>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

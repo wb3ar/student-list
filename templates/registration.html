@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>
+        <?=isset($e)?'Редактировать абитуриента':'Добавить абитуриента'?>
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Свой CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <a class='link-list' href='index.php'>
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        </a>
+                        <h1 class="text-center"><?=isset($e)?'Редактировать абитуриента':'Добавить абитуриента'?></h1>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="form-horizontal" accept-charset="utf-8" method="post">
+                            <div class="form-group<?=isset($errors->firstname)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="firstname" class="col-xs-3 control-label">Имя</label>
+                                <div class="col-xs-9">
+                                    <input name="firstname" autofocus pattern="[а-яА-ЯёЁa-zA-Z](([\s-_\'\.]?[0-9а-яА-ЯёЁa-zA-Z]+)*)" title="русские и латинские буквы, цифры и некоторые спецсимволы." maxlength="50" type="text" class="form-control" required id="firstname" placeholder="Иван" value="<?=htmlSpec($abiturient->getVar('firstname'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->lastname)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="lastname" class="col-xs-3 control-label">Фамилия</label>
+                                <div class="col-xs-9">
+                                    <input name="lastname" pattern="[а-яА-ЯёЁa-zA-Z](([\s-_\'\.]?[0-9а-яА-ЯёЁa-zA-Z]+)*)" title="русские и латинские буквы, цифры и некоторые спецсимволы." maxlength="50" type="text" class="form-control" required id="lastname" placeholder="Иванов" value="<?=htmlSpec($abiturient->getVar('lastname'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->gender)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="gender" class="col-xs-3 control-label">Пол</label>
+                                <div class="col-xs-9">
+                                    <select name="gender" required class="form-control" id="gender">
+                                    <option value="1" <?=$abiturient->getVar('gender')==1 ? "selected" : ""?>>Мужской</option>
+                                    <option value="2" <?=$abiturient->getVar('gender')==2 ? "selected" : ""?>>Женский</option>
+                                  </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->group_n)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="group" class="col-xs-3 control-label">Группа</label>
+                                <div class="col-xs-9">
+                                    <input name="group_n" type="text" pattern="[а-яА-ЯёЁa-zA-Z0-9]+" title="русские и латинские буквы, цифры" required maxlength="5" class="form-control" id="group" placeholder="ИВ116" value="<?=htmlSpec($abiturient->getVar('group_n'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->email)?' has-error':''?>">
+                                <label for="email" class="col-xs-3 control-label">Email</label>
+                                <div class="col-xs-9">
+                                    <input name="email" type="email" required class="form-control" id="email" placeholder="ivanov@mail.ru" value="<?=htmlSpec($abiturient->getVar('email'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->ege)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="ege" class="col-xs-3 control-label">Сумма баллов ЕГЭ</label>
+                                <div class="col-xs-9">
+                                    <input name="ege" type="number" pattern="[0-9]+" tutle="цифры." required max='300' class="form-control" id="ege" placeholder="210" value="<?=htmlSpec($abiturient->getVar('ege'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->year_b)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="year" class="col-xs-3 control-label">Год рождения</label>
+                                <div class="col-xs-9">
+                                    <input name="year_b" type="number" pattern="[0-9]+" tutle="цифры." required min="1901" max="2155" class="form-control" id="year" placeholder="1998" value="<?=htmlSpec($abiturient->getVar('year_b'))?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group<?=isset($errors->registration)?' has-error':(isset($errors)?' has-success':'')?>">
+                                <label for="registration" class="col-xs-3 control-label">Прописка</label>
+                                <div class="col-xs-9">
+                                    <select name="registration" required class="form-control" id="registration">
+                                    <option value="1" <?=$abiturient->getVar('registration')==1 ? "selected" : ""?>>Местный</option>
+                                    <option value="2" <?=$abiturient->getVar('registration')==2 ? "selected" : ""?>>Иногородний</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="token" value="<?= htmlSpec($token) ?>">
+                            <button type="submit" class="btn btn-success btn-lg center-block"><?=isset($e)?'Сохранить':'Добавить'?></button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php if (!empty($message)): ?>
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="alert <?=isset($s)?'alert-success':'alert-danger'?>" role="alert">
+                    <?=$message?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+</body>
+
+</html>
